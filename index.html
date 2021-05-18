@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="https://ms.purplepatch.online/ideas/vertical-scroll/css/slick.css">
+	<link rel="stylesheet" type="text/css" href="https://ms.purplepatch.online/ideas/vertical-scroll/css/mystyle.css">
+	<script type="text/javascript" src="https://ms.purplepatch.online/ideas/vertical-scroll/js/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript" src="https://ms.purplepatch.online/ideas/vertical-scroll/js/gsap.min.js"></script>
+	<script type="text/javascript" src="https://ms.purplepatch.online/ideas/vertical-scroll/js/slick.min.js"></script>
+	<script type="text/javascript" src="js/product.js"></script>
+</head>
+
+<body>
+	<div id="purpleArea" class="rct wrapper opacity0 noSelect">
+
+		<div id="cont" class="rct adsSlider"></div>
+
+		<div id="loaderCont" class="rct opacity0">
+			<div id="loader" class="rotating"></div>
+		</div>
+
+		<div id="logo_bg" class="logos noDisplay noEvents"></div>
+
+		<div id="a1" class="abs arrowCircle">
+			<svg version="1.1" id="" class="arrow" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 85.6 65.1" style="enable-background:new 0 0 85.6 65.1;" xml:space="preserve">
+				<style type="text/css">
+					.st0 { fill: #3baef2; }
+				</style>
+				<g>
+					<path class="st0" d="M77.4,37H4.9c-2.4,0-4.4-2-4.4-4.4v0c0-2.4,2-4.4,4.4-4.4h72.6c2.4,0,4.4,2,4.4,4.4v0C81.9,35,79.9,37,77.4,37z"></path>
+					<path class="st0" d="M77.6,35.5L50.2,8c-1.7-1.7-1.7-4.5,0-6.3l0,0c1.7-1.7,4.5-1.7,6.3,0l27.4,27.4c1.7,1.7,1.7,4.5,0,6.3l0,0C82.2,37.2,79.3,37.2,77.6,35.5z"></path>
+					<path class="st0" d="M83.9,35.9L56.4,63.3c-1.7,1.7-4.5,1.7-6.3,0l0,0c-1.7-1.7-1.7-4.5,0-6.3l27.4-27.5c1.7-1.7,4.5-1.7,6.3,0l0,0C85.6,31.3,85.6,34.1,83.9,35.9z"></path>
+				</g>
+			</svg>
+		</div>
+		<div id="a2" class="abs arrowCircle">
+			<svg version="1.1" id="" class="arrow" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 85.6 65.1" style="enable-background:new 0 0 85.6 65.1;" xml:space="preserve">
+				<style type="text/css">
+					.st0 { fill: #3baef2; }
+				</style>
+				<g>
+					<path class="st0" d="M77.4,37H4.9c-2.4,0-4.4-2-4.4-4.4v0c0-2.4,2-4.4,4.4-4.4h72.6c2.4,0,4.4,2,4.4,4.4v0C81.9,35,79.9,37,77.4,37z"></path>
+					<path class="st0" d="M77.6,35.5L50.2,8c-1.7-1.7-1.7-4.5,0-6.3l0,0c1.7-1.7,4.5-1.7,6.3,0l27.4,27.4c1.7,1.7,1.7,4.5,0,6.3l0,0C82.2,37.2,79.3,37.2,77.6,35.5z"></path>
+					<path class="st0" d="M83.9,35.9L56.4,63.3c-1.7,1.7-4.5,1.7-6.3,0l0,0c-1.7-1.7-1.7-4.5,0-6.3l27.4-27.5c1.7-1.7,4.5-1.7,6.3,0l0,0C85.6,31.3,85.6,34.1,83.9,35.9z"></path>
+				</g>
+			</svg>
+		</div>
+		<div id="border" class="rct noEvents"></div>
+	</div>
+
+	<script>
+		/*loading assets*/
+		var assets_url = "images/";
+		var click_macro = '{CLICK_MACRO}';
+
+		var assets = {
+			init: [{
+				format: "png",
+				type: "id",
+				scale: 1,
+				names: "logo_bg"
+			}, ]
+		}
+
+		function init() {
+		
+			extractData(products);
+			loadImages();
+
+			gsap.set("#loaderCont", {
+				scale: 0
+			});
+			gsap.to("#loaderCont", 0.4, {
+				delay: 0.1,
+				scale: 0.5,
+				opacity: 1,
+				ease: "power2.out"
+			});
+
+			function extractData(data) {
+
+				var items = $(data).sort(() => Math.random() - 0.5);
+				
+				for (var i = 0; i < items.length ; i++) {
+					p.list.push(items[i]);
+				}
+			}
+		}
+
+		function loadImages() {
+			p.list.forEach(function (item) {
+
+				var newImg = new Image;
+				newImg.onload = function () {
+					item.src = assets_url + item['image_link'];
+					p.loaded++;
+					if (p.loaded == p.list.length) init_next();
+				}
+				newImg.src = assets_url + item['image_link'];
+
+			});
+		}
+	</script>
+
+	<script src="https://ms.purplepatch.online/ideas/vertical-scroll/code.js?v=1.3"></script>
+</body>
+</html>
